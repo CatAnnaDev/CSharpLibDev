@@ -1,0 +1,154 @@
+﻿namespace CSharpLibDev.Extensions;
+
+public static class StringExtensions
+{
+    /// <summary>
+    /// Converts an hex string to a byte array.
+    /// </summary>
+    public static byte[] ToByteArrayHex(this string hexStr)
+    {
+        var numberChars = hexStr.Length / 2;
+        var bytes = new byte[numberChars];
+        using var sr = new StringReader(hexStr);
+        for (var i = 0; i < numberChars; i++)
+            bytes[i] = Convert.ToByte(new string(new[] { (char)sr.Read(), (char)sr.Read() }), 16);
+        return bytes;
+    }
+
+    /// <summary>
+    /// Converts a string to a byte array.
+    /// </summary>
+    /// <param name="str"></param>
+    /// <returns></returns>
+    public static byte[] ToByteArray(this string str)
+    {
+        var ret = new byte[str.Length];
+        for (var i = 0; i < str.Length; i++)
+        {
+            ret[i] = Convert.ToByte(str[i]);
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// Replaces the most common HTML escape sequences.
+    /// </summary>
+    public static string UnescapeHtml(this string str)
+    {
+        str = str.Replace("&lt;", "<");
+        str = str.Replace("&gt;", ">");
+        str = str.Replace("&#xA", "\n");
+        str = str.Replace("&quot;", "\"");
+        str = str.Replace("&amp;", "&");
+        return str;
+    }
+
+    /// <summary>
+    /// Escape the most common HTML syntax symbols with their escape sequence.
+    /// </summary>
+    public static string EscapeHtml(this string str)
+    {
+        str = str.Replace("<", "&lt;");
+        str = str.Replace(">", "&gt;");
+        str = str.Replace("\n", "&#xA");
+        str = str.Replace("\"", "&quot;");
+        str = str.Replace("&", "&amp;");
+        return str;
+    }
+
+    /// <summary>
+    /// Replaces the first occurrence of <paramref name="search"/> with <paramref name="replacement"/> and returns the resulting string. The replacement is case-insensitive.
+    /// </summary>
+    public static string ReplaceFirstOccurrenceCaseInsensitive(this string input, string search, string replacement)
+    {
+        var pos = input.IndexOf(search, StringComparison.InvariantCultureIgnoreCase);
+        if (pos < 0) return input;
+        var result = input[..pos] + replacement + input[(pos + search.Length)..];
+        return result;
+    }
+
+    /// <summary>
+    /// Replaces all the occurrences of <paramref name="search"/> with <paramref name="replacement"/> and returns the resulting string. The replacement is case-insensitive.
+    /// </summary>
+    public static string ReplaceCaseInsensitive(this string input, string search, string replacement)
+    {
+        var result = Regex.Replace(
+            input,
+            Regex.Escape(search),
+            replacement.Replace("$", "$$"), // ???
+            RegexOptions.IgnoreCase
+        );
+        return result;
+    }
+
+    /// <summary>
+    /// Wraps the string into &lt;font/&gt; tags if missing or mismatching and returns it.
+    /// </summary>
+    public static string AddFontTagsIfMissing(this string msg)
+    {
+        var sb = new StringBuilder();
+        if (!msg.StartsWith("<font", StringComparison.InvariantCultureIgnoreCase))
+        {
+            if (msg.IndexOf("<font", StringComparison.OrdinalIgnoreCase) > 0)
+            {
+                sb.Append("<font>");
+                sb.Append(msg[..msg.IndexOf("<font", StringComparison.OrdinalIgnoreCase)]);
+                sb.Append("</font>");
+                sb.Append(msg[msg.IndexOf("<font", StringComparison.OrdinalIgnoreCase)..]);
+            }
+            else
+            {
+                sb.Append("<font>");
+                sb.Append(msg);
+                sb.Append("</font>");
+            }
+        }
+        else sb.Append(msg);
+        var openCount = Regex.Matches(msg, "<font").Count;
+        var closeCount = Regex.Matches(msg, "</font>").Count;
+        if (openCount > closeCount) sb.Append("</font>");
+        return sb.ToString();
+    }
+
+    /// <summary>
+    /// Makes first letter of the word uppercase, while forcing the rest to be lowercase and returns the result.
+    /// </summary>
+    public static string ToCapital(this string str)
+    {
+        var sb = new StringBuilder(str[0].ToString().ToUpper());
+        sb.Append(str[1..].ToLower());
+        return sb.ToString();
+    }
+
+    /// <summary>
+    /// Checks if this string starts with any of the specified strings.
+    /// </summary>
+    /// <param name="tokens">the tokens to be checked</param>
+    /// <param name="options">options for comparison configuration</param>
+    /// <returns>true if input contains any of the tokens</returns>
+    /// <exception cref="ArgumentException">if tokens is empty</exception>
+    public static bool StartsWithAny(this string input, string[] tokens, StringComparison options = StringComparison.InvariantCultureIgnoreCase)
+    {
+        if (tokens.Length == 0)
+        {
+            throw new ArgumentException($"{nameof(tokens)} cannot be empty");
+        }
+        return tokens.Any(x => input.StartsWith(x, options));
+    }
+
+    /// <summary>
+    /// Checks if this string ends with any of the specified strings.
+    /// </summary>
+    /// <param name="tokens">the tokens to be checked</param>
+    /// <param name="options">options for comparison configuration</param>
+    /// <returns>true if input contains any of the tokens</returns>
+    /// <exception cref="ArgumentException">if tokens is empty</exception>
+    public static bool EndsWithAny(this string input, string[] tokens, StringComparison options = StringComparison.InvariantCultureIgnoreCase)
+    {
+        if (tokens.Length == 0)
+        {
+            throw new ArgumentException($"{nameof(tokens)} cannot be empty");
+        }
+        return tokens.Any(x => input.EndsWith(x, options));
+    }
+}

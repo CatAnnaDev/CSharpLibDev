@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Company>PsykoDv</Company>
+		<Product>CSharpLibDev</Product>
+		<Nullable>enable</Nullable>
+		<TargetFrameworks>net6</TargetFrameworks>
+	</PropertyGroup>
+	<PropertyGroup>
+		<Version>0.0.1</Version>
+	</PropertyGroup>
+	<PropertyGroup>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<AssemblyName>CSharpLibDev</AssemblyName>
+		<DebugType>portable</DebugType>
+		<Deterministic>true</Deterministic>
+		<OutputType>Library</OutputType>
+		<RootNamespace>CSharpLibDev</RootNamespace>
+		<TargetFrameworks>net6</TargetFrameworks>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	</PropertyGroup>
+</Project>

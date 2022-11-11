@@ -1,0 +1,12 @@
+C:\Users\johan\source\repos\CSharpLibDev\bin\Release\net6.0\CSharpLibDev.deps.json
+C:\Users\johan\source\repos\CSharpLibDev\bin\Release\net6.0\CSharpLibDev.dll
+C:\Users\johan\source\repos\CSharpLibDev\bin\Release\net6.0\CSharpLibDev.pdb
+C:\Users\johan\source\repos\CSharpLibDev\obj\Release\net6.0\CSharpLibDev.csproj.AssemblyReference.cache
+C:\Users\johan\source\repos\CSharpLibDev\obj\Release\net6.0\CSharpLibDev.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\johan\source\repos\CSharpLibDev\obj\Release\net6.0\CSharpLibDev.AssemblyInfoInputs.cache
+C:\Users\johan\source\repos\CSharpLibDev\obj\Release\net6.0\CSharpLibDev.AssemblyInfo.cs
+C:\Users\johan\source\repos\CSharpLibDev\obj\Release\net6.0\CSharpLibDev.csproj.CoreCompileInputs.cache
+C:\Users\johan\source\repos\CSharpLibDev\obj\Release\net6.0\CSharpLibDev.dll
+C:\Users\johan\source\repos\CSharpLibDev\obj\Release\net6.0\refint\CSharpLibDev.dll
+C:\Users\johan\source\repos\CSharpLibDev\obj\Release\net6.0\CSharpLibDev.pdb
+C:\Users\johan\source\repos\CSharpLibDev\obj\Release\net6.0\ref\CSharpLibDev.dll
